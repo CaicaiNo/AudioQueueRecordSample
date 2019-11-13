@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F36FC20F237ACC230057E455 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC20E237ACC230057E455 /* AppDelegate.m */; };
+		F36FC212237ACC230057E455 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC211237ACC230057E455 /* ViewController.m */; };
+		F36FC215237ACC230057E455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36FC213237ACC230057E455 /* Main.storyboard */; };
+		F36FC217237ACC260057E455 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F36FC216237ACC260057E455 /* Assets.xcassets */; };
+		F36FC21A237ACC260057E455 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36FC218237ACC260057E455 /* LaunchScreen.storyboard */; };
+		F36FC21D237ACC260057E455 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC21C237ACC260057E455 /* main.m */; };
+		F36FC22E237ACCC50057E455 /* GSLiveAudioConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC224237ACCC40057E455 /* GSLiveAudioConfiguration.m */; };
+		F36FC22F237ACCC50057E455 /* GSAudioCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC227237ACCC40057E455 /* GSAudioCapture.m */; };
+		F36FC230237ACCC50057E455 /* GSOpenALUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36FC22A237ACCC40057E455 /* GSOpenALUnit.mm */; };
+		F36FC231237ACCC50057E455 /* GSPCMWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC22D237ACCC40057E455 /* GSPCMWriter.m */; };
+		F36FC235237ACD850057E455 /* GSAudioSendEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36FC233237ACD850057E455 /* GSAudioSendEngine.mm */; };
+		F36FC238237ACDBC0057E455 /* GSNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC236237ACDBB0057E455 /* GSNotificationManager.m */; };
+		F36FC23C237AE2800057E455 /* GSMediaAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC23B237AE27F0057E455 /* GSMediaAuthor.m */; };
+		F36FC23F237AE7560057E455 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36FC23E237AE7560057E455 /* OpenAL.framework */; };
+		F36FC241237AE75A0057E455 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36FC240237AE75A0057E455 /* AudioToolbox.framework */; };
+		F36FC248237BAA740057E455 /* GSAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC247237BAA740057E455 /* GSAudioStreamer.m */; };
+		F36FC258237BCFEE0057E455 /* MCParsedAudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC24A237BCFED0057E455 /* MCParsedAudioData.m */; };
+		F36FC259237BCFEE0057E455 /* MCAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC24B237BCFED0057E455 /* MCAudioFile.m */; };
+		F36FC25A237BCFEE0057E455 /* MCAudioOutputQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC252237BCFED0057E455 /* MCAudioOutputQueue.m */; };
+		F36FC25B237BCFEE0057E455 /* MCAudioBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC254237BCFED0057E455 /* MCAudioBuffer.m */; };
+		F36FC25C237BCFEE0057E455 /* MCAudioFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC255237BCFED0057E455 /* MCAudioFileStream.m */; };
+		F36FC25D237BCFEE0057E455 /* MCAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC256237BCFED0057E455 /* MCAudioSession.m */; };
+		F36FC25E237BCFEE0057E455 /* MCSimpleAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC257237BCFED0057E455 /* MCSimpleAudioPlayer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F36FC20A237ACC230057E455 /* AudioQueueRecordSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioQueueRecordSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F36FC20D237ACC230057E455 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F36FC20E237ACC230057E455 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F36FC210237ACC230057E455 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F36FC211237ACC230057E455 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F36FC214237ACC230057E455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F36FC216237ACC260057E455 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F36FC219237ACC260057E455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F36FC21B237ACC260057E455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F36FC21C237ACC260057E455 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F36FC224237ACCC40057E455 /* GSLiveAudioConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSLiveAudioConfiguration.m; sourceTree = "<group>"; };
+		F36FC225237ACCC40057E455 /* GSAudioCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAudioCapture.h; sourceTree = "<group>"; };
+		F36FC226237ACCC40057E455 /* GSLiveAudioConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLiveAudioConfiguration.h; sourceTree = "<group>"; };
+		F36FC227237ACCC40057E455 /* GSAudioCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAudioCapture.m; sourceTree = "<group>"; };
+		F36FC229237ACCC40057E455 /* GSPCMWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSPCMWriter.h; sourceTree = "<group>"; };
+		F36FC22A237ACCC40057E455 /* GSOpenALUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GSOpenALUnit.mm; sourceTree = "<group>"; };
+		F36FC22B237ACCC40057E455 /* GSAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAudioPlayer.h; sourceTree = "<group>"; };
+		F36FC22C237ACCC40057E455 /* GSOpenALUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSOpenALUnit.h; sourceTree = "<group>"; };
+		F36FC22D237ACCC40057E455 /* GSPCMWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSPCMWriter.m; sourceTree = "<group>"; };
+		F36FC233237ACD850057E455 /* GSAudioSendEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GSAudioSendEngine.mm; sourceTree = "<group>"; };
+		F36FC234237ACD850057E455 /* GSAudioSendEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAudioSendEngine.h; sourceTree = "<group>"; };
+		F36FC236237ACDBB0057E455 /* GSNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSNotificationManager.m; sourceTree = "<group>"; };
+		F36FC237237ACDBC0057E455 /* GSNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSNotificationManager.h; sourceTree = "<group>"; };
+		F36FC23A237AE27F0057E455 /* GSMediaAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMediaAuthor.h; sourceTree = "<group>"; };
+		F36FC23B237AE27F0057E455 /* GSMediaAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMediaAuthor.m; sourceTree = "<group>"; };
+		F36FC23E237AE7560057E455 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		F36FC240237AE75A0057E455 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F36FC245237BA3BD0057E455 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		F36FC246237BAA740057E455 /* GSAudioStreamer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAudioStreamer.h; sourceTree = "<group>"; };
+		F36FC247237BAA740057E455 /* GSAudioStreamer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAudioStreamer.m; sourceTree = "<group>"; };
+		F36FC24A237BCFED0057E455 /* MCParsedAudioData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCParsedAudioData.m; sourceTree = "<group>"; };
+		F36FC24B237BCFED0057E455 /* MCAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioFile.m; sourceTree = "<group>"; };
+		F36FC24C237BCFED0057E455 /* MCAudioOutputQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioOutputQueue.h; sourceTree = "<group>"; };
+		F36FC24D237BCFED0057E455 /* MCAudioFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioFileStream.h; sourceTree = "<group>"; };
+		F36FC24E237BCFED0057E455 /* MCAudioBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioBuffer.h; sourceTree = "<group>"; };
+		F36FC24F237BCFED0057E455 /* MCSimpleAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSimpleAudioPlayer.h; sourceTree = "<group>"; };
+		F36FC250237BCFED0057E455 /* MCAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioSession.h; sourceTree = "<group>"; };
+		F36FC251237BCFED0057E455 /* MCParsedAudioData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCParsedAudioData.h; sourceTree = "<group>"; };
+		F36FC252237BCFED0057E455 /* MCAudioOutputQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioOutputQueue.m; sourceTree = "<group>"; };
+		F36FC253237BCFED0057E455 /* MCAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioFile.h; sourceTree = "<group>"; };
+		F36FC254237BCFED0057E455 /* MCAudioBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioBuffer.m; sourceTree = "<group>"; };
+		F36FC255237BCFED0057E455 /* MCAudioFileStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioFileStream.m; sourceTree = "<group>"; };
+		F36FC256237BCFED0057E455 /* MCAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioSession.m; sourceTree = "<group>"; };
+		F36FC257237BCFED0057E455 /* MCSimpleAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSimpleAudioPlayer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F36FC207237ACC230057E455 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36FC241237AE75A0057E455 /* AudioToolbox.framework in Frameworks */,
+				F36FC23F237AE7560057E455 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F36FC201237ACC230057E455 = {
+			isa = PBXGroup;
+			children = (
+				F36FC20C237ACC230057E455 /* AudioQueueRecordSample */,
+				F36FC20B237ACC230057E455 /* Products */,
+				F36FC23D237AE7560057E455 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F36FC20B237ACC230057E455 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC20A237ACC230057E455 /* AudioQueueRecordSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F36FC20C237ACC230057E455 /* AudioQueueRecordSample */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC232237ACD850057E455 /* AudioQueue */,
+				F36FC223237ACCC40057E455 /* AudioUnit */,
+				F36FC228237ACCC40057E455 /* Tools */,
+				F36FC20D237ACC230057E455 /* AppDelegate.h */,
+				F36FC20E237ACC230057E455 /* AppDelegate.m */,
+				F36FC210237ACC230057E455 /* ViewController.h */,
+				F36FC211237ACC230057E455 /* ViewController.m */,
+				F36FC245237BA3BD0057E455 /* PrefixHeader.pch */,
+				F36FC213237ACC230057E455 /* Main.storyboard */,
+				F36FC216237ACC260057E455 /* Assets.xcassets */,
+				F36FC218237ACC260057E455 /* LaunchScreen.storyboard */,
+				F36FC21B237ACC260057E455 /* Info.plist */,
+				F36FC21C237ACC260057E455 /* main.m */,
+			);
+			path = AudioQueueRecordSample;
+			sourceTree = "<group>";
+		};
+		F36FC223237ACCC40057E455 /* AudioUnit */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC225237ACCC40057E455 /* GSAudioCapture.h */,
+				F36FC227237ACCC40057E455 /* GSAudioCapture.m */,
+				F36FC226237ACCC40057E455 /* GSLiveAudioConfiguration.h */,
+				F36FC224237ACCC40057E455 /* GSLiveAudioConfiguration.m */,
+			);
+			path = AudioUnit;
+			sourceTree = "<group>";
+		};
+		F36FC228237ACCC40057E455 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC249237BCFED0057E455 /* MCSimpleAudioPlayer */,
+				F36FC23A237AE27F0057E455 /* GSMediaAuthor.h */,
+				F36FC23B237AE27F0057E455 /* GSMediaAuthor.m */,
+				F36FC237237ACDBC0057E455 /* GSNotificationManager.h */,
+				F36FC236237ACDBB0057E455 /* GSNotificationManager.m */,
+				F36FC22B237ACCC40057E455 /* GSAudioPlayer.h */,
+				F36FC22C237ACCC40057E455 /* GSOpenALUnit.h */,
+				F36FC22A237ACCC40057E455 /* GSOpenALUnit.mm */,
+				F36FC246237BAA740057E455 /* GSAudioStreamer.h */,
+				F36FC247237BAA740057E455 /* GSAudioStreamer.m */,
+				F36FC229237ACCC40057E455 /* GSPCMWriter.h */,
+				F36FC22D237ACCC40057E455 /* GSPCMWriter.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		F36FC232237ACD850057E455 /* AudioQueue */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC234237ACD850057E455 /* GSAudioSendEngine.h */,
+				F36FC233237ACD850057E455 /* GSAudioSendEngine.mm */,
+			);
+			path = AudioQueue;
+			sourceTree = "<group>";
+		};
+		F36FC23D237AE7560057E455 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC240237AE75A0057E455 /* AudioToolbox.framework */,
+				F36FC23E237AE7560057E455 /* OpenAL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F36FC249237BCFED0057E455 /* MCSimpleAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F36FC24E237BCFED0057E455 /* MCAudioBuffer.h */,
+				F36FC254237BCFED0057E455 /* MCAudioBuffer.m */,
+				F36FC253237BCFED0057E455 /* MCAudioFile.h */,
+				F36FC24B237BCFED0057E455 /* MCAudioFile.m */,
+				F36FC24D237BCFED0057E455 /* MCAudioFileStream.h */,
+				F36FC255237BCFED0057E455 /* MCAudioFileStream.m */,
+				F36FC24C237BCFED0057E455 /* MCAudioOutputQueue.h */,
+				F36FC252237BCFED0057E455 /* MCAudioOutputQueue.m */,
+				F36FC250237BCFED0057E455 /* MCAudioSession.h */,
+				F36FC256237BCFED0057E455 /* MCAudioSession.m */,
+				F36FC251237BCFED0057E455 /* MCParsedAudioData.h */,
+				F36FC24A237BCFED0057E455 /* MCParsedAudioData.m */,
+				F36FC24F237BCFED0057E455 /* MCSimpleAudioPlayer.h */,
+				F36FC257237BCFED0057E455 /* MCSimpleAudioPlayer.m */,
+			);
+			path = MCSimpleAudioPlayer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F36FC209237ACC230057E455 /* AudioQueueRecordSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F36FC220237ACC260057E455 /* Build configuration list for PBXNativeTarget "AudioQueueRecordSample" */;
+			buildPhases = (
+				F36FC206237ACC230057E455 /* Sources */,
+				F36FC207237ACC230057E455 /* Frameworks */,
+				F36FC208237ACC230057E455 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioQueueRecordSample;
+			productName = AudioQueueRecordSample;
+			productReference = F36FC20A237ACC230057E455 /* AudioQueueRecordSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F36FC202237ACC230057E455 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = haocai;
+				TargetAttributes = {
+					F36FC209237ACC230057E455 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = F36FC205237ACC230057E455 /* Build configuration list for PBXProject "AudioQueueRecordSample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F36FC201237ACC230057E455;
+			productRefGroup = F36FC20B237ACC230057E455 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F36FC209237ACC230057E455 /* AudioQueueRecordSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F36FC208237ACC230057E455 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36FC21A237ACC260057E455 /* LaunchScreen.storyboard in Resources */,
+				F36FC217237ACC260057E455 /* Assets.xcassets in Resources */,
+				F36FC215237ACC230057E455 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F36FC206237ACC230057E455 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36FC259237BCFEE0057E455 /* MCAudioFile.m in Sources */,
+				F36FC235237ACD850057E455 /* GSAudioSendEngine.mm in Sources */,
+				F36FC231237ACCC50057E455 /* GSPCMWriter.m in Sources */,
+				F36FC25D237BCFEE0057E455 /* MCAudioSession.m in Sources */,
+				F36FC212237ACC230057E455 /* ViewController.m in Sources */,
+				F36FC23C237AE2800057E455 /* GSMediaAuthor.m in Sources */,
+				F36FC22E237ACCC50057E455 /* GSLiveAudioConfiguration.m in Sources */,
+				F36FC25B237BCFEE0057E455 /* MCAudioBuffer.m in Sources */,
+				F36FC230237ACCC50057E455 /* GSOpenALUnit.mm in Sources */,
+				F36FC21D237ACC260057E455 /* main.m in Sources */,
+				F36FC25A237BCFEE0057E455 /* MCAudioOutputQueue.m in Sources */,
+				F36FC25E237BCFEE0057E455 /* MCSimpleAudioPlayer.m in Sources */,
+				F36FC25C237BCFEE0057E455 /* MCAudioFileStream.m in Sources */,
+				F36FC238237ACDBC0057E455 /* GSNotificationManager.m in Sources */,
+				F36FC22F237ACCC50057E455 /* GSAudioCapture.m in Sources */,
+				F36FC20F237ACC230057E455 /* AppDelegate.m in Sources */,
+				F36FC248237BAA740057E455 /* GSAudioStreamer.m in Sources */,
+				F36FC258237BCFEE0057E455 /* MCParsedAudioData.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F36FC213237ACC230057E455 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F36FC214237ACC230057E455 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F36FC218237ACC260057E455 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F36FC219237ACC260057E455 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F36FC21E237ACC260057E455 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F36FC21F237ACC260057E455 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F36FC221237ACC260057E455 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6GHP23DFJR;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/AudioQueueRecordSample/PrefixHeader.pch";
+				INFOPLIST_FILE = AudioQueueRecordSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = haocai.AudioQueueRecordSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F36FC222237ACC260057E455 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6GHP23DFJR;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/AudioQueueRecordSample/PrefixHeader.pch";
+				INFOPLIST_FILE = AudioQueueRecordSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = haocai.AudioQueueRecordSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F36FC205237ACC230057E455 /* Build configuration list for PBXProject "AudioQueueRecordSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36FC21E237ACC260057E455 /* Debug */,
+				F36FC21F237ACC260057E455 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F36FC220237ACC260057E455 /* Build configuration list for PBXNativeTarget "AudioQueueRecordSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36FC221237ACC260057E455 /* Debug */,
+				F36FC222237ACC260057E455 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F36FC202237ACC230057E455 /* Project object */;
+}
