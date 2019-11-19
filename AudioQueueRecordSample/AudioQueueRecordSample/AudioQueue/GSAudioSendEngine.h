@@ -6,7 +6,7 @@
 
 #define kNumberBuffers 3
 #define kFrameSize 2048
-
+#define kTVURecoderPCMMaxBuffSize 2048
 
 typedef struct AQCallbackStruct {
     AudioStreamBasicDescription mDataFormat;
@@ -31,7 +31,9 @@ typedef struct AQCallbackStruct {
 
 @property (assign, nonatomic) AQCallbackStruct aqc;
 @property (weak, nonatomic) id<GSAudioSendEngineDelegate> delegate;
-
+@property (nonatomic ,assign)       AudioFileID                     mRecordFile;
+@property (nonatomic ,assign)       SInt64                          mRecordPacket;
+@property (readonly)                BOOL                            needsVoiceDemo;
 /**
  音频session设置AVAudioSessionCategoryOptions 默认为  AVAudioSessionCategoryOptionDefaultToSpeaker |AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionMixWithOthers;
  */

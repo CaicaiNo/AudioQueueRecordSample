@@ -47,7 +47,7 @@ NSString *const GSAudioComponentFailedToCreateNotification = @"GSAudioComponentF
         
         AudioComponentDescription acd;
         acd.componentType = kAudioUnitType_Output;
-        acd.componentSubType = kAudioUnitSubType_VoiceProcessingIO;
+        acd.componentSubType = kAudioUnitSubType_VoiceProcessingIO; //VoiceProcessingIO模式下才能开启回音消除
 //        acd.componentSubType = kAudioUnitSubType_RemoteIO;
         acd.componentManufacturer = kAudioUnitManufacturer_Apple;
         acd.componentFlags = 0;
@@ -87,7 +87,7 @@ NSString *const GSAudioComponentFailedToCreateNotification = @"GSAudioComponentF
         AudioUnitSetProperty(self.componetInstance, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &desc, sizeof(desc));
         AudioUnitSetProperty(self.componetInstance, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &desc, sizeof(desc));
         AudioUnitSetProperty(self.componetInstance, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &cb, sizeof(cb));
-        //回音消除
+        //开启回音消除
         UInt32 echoCancellation;
         UInt32 size = sizeof(echoCancellation);
         AudioUnitGetProperty(self.componetInstance,

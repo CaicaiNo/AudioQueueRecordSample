@@ -36,7 +36,7 @@
         [fmt setDateFormat:@"YYYYMMDD-HHMMSS"];
         NSDate *current = [NSDate date];
         NSString *webcastId = [fmt stringFromDate:current];
-        m_filename = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pcm",webcastId]];
+        m_filename = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",webcastId]];
         
         if([fileManager fileExistsAtPath:m_filename isDirectory:&isDir]){
             NSError *error = nil;
@@ -82,7 +82,7 @@
         [m_outputSteam close];
         m_outputSteam = nil;
     }
-    m_filename = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pcm",filename]];
+    m_filename = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",filename]];
     BOOL isDir = NO;
     if([[NSFileManager defaultManager] fileExistsAtPath:m_filename isDirectory:&isDir]){
         NSError *error = nil;

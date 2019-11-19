@@ -124,7 +124,7 @@ typedef enum : NSUInteger {
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:path];
     NSLog(@"play pcm : %@, isExist : %d",path,isExist);
     
-    _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:0];
+    _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:kAudioFileCAFType];
     [_player play];
 }
 

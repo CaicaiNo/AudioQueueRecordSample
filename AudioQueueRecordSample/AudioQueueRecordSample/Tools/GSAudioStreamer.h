@@ -34,6 +34,19 @@
 
 #define kAQMaxPacketDescs 512    // Number of packet descriptions in our array
 
+typedef enum
+{
+    AS_INITIALIZED = 0,
+    AS_STARTING_FILE_THREAD,
+    AS_WAITING_FOR_DATA,
+    AS_FLUSHING_EOF,
+    AS_WAITING_FOR_QUEUE_TO_START,
+    AS_PLAYING,
+    AS_BUFFERING,
+    AS_STOPPING,
+    AS_STOPPED,
+    AS_PAUSED
+} AudioStreamerState;
 
 @interface GSAudioStreamer : NSObject{
     AudioQueueRef audioQueue;
@@ -48,7 +61,11 @@
     bool inuse[kNumAQBufs];            // flags to indicate that a buffer is still in use
     NSInteger buffersUsed;
     
+    AudioStreamerState state;
     OSStatus err;
+    
+    pthread_mutex_t queueBuffersMutex;            // a mutex to protect the inuse flags
+    pthread_cond_t queueBufferReadyCondition;    // a condition varable for handling the inuse flags
 }
 
 - (instancetype)initWithPCMFile:(NSString *)path;
