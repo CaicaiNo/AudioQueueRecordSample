@@ -12,8 +12,7 @@
 #import "GSPCMWriter.h"
 #import <AVKit/AVKit.h>
 #import "GSOpenALUnit.h"
-#import "MCSimpleAudioPlayer.h"
-
+#import "GSPCMPlayer.h"
 typedef enum : NSUInteger {
     PlayerStop = 0,
     PlayerPlay,
@@ -38,7 +37,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) GSOpenALUnit *openALUnit;
 @property (nonatomic,strong) NSInputStream *inputStream;
 
-@property (nonatomic,strong) MCSimpleAudioPlayer *player;
+@property (nonatomic,strong) GSPCMPlayer *player;
 
 @end
 
@@ -124,7 +123,7 @@ typedef enum : NSUInteger {
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:path];
     NSLog(@"play pcm : %@, isExist : %d",path,isExist);
     
-    _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:kAudioFileCAFType];
+    _player = [[GSPCMPlayer alloc] initWithPCMFile:path];
     [_player play];
 }
 

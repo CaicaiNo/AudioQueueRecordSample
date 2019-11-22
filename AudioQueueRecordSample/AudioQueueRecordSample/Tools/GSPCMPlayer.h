@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <AudioToolbox/AudioToolbox.h>
 
-#define kNumAQBufs 16            // Number of audio queue buffers we allocate.
+#define kNumAQBufs 3            // Number of audio queue buffers we allocate.
 // Needs to be big enough to keep audio pipeline
 // busy (non-zero number of queued buffers) but
 // not so big that audio takes too long to begin
@@ -48,12 +48,12 @@ typedef enum
     AS_PAUSED
 } AudioStreamerState;
 
-@interface GSAudioStreamer : NSObject{
+@interface GSPCMPlayer : NSObject{
     AudioQueueRef audioQueue;
     AudioFileStreamID audioFileStream;    // the audio file stream parser
     AudioStreamBasicDescription asbd;    // description of the audio
     AudioQueueBufferRef audioQueueBuffer[kNumAQBufs];        // audio queue buffers
-    AudioStreamPacketDescription packetDescs[kAQMaxPacketDescs];    // packet descriptions for enqueuing audio
+    AudioStreamPacketDescription *aspd;
     unsigned int fillBufferIndex;    // the index of the audioQueueBuffer that is being filled
     UInt32 packetBufferSize;
     size_t bytesFilled;                // how many bytes have been filled
@@ -66,6 +66,7 @@ typedef enum
     
     pthread_mutex_t queueBuffersMutex;            // a mutex to protect the inuse flags
     pthread_cond_t queueBufferReadyCondition;    // a condition varable for handling the inuse flags
+    
 }
 
 - (instancetype)initWithPCMFile:(NSString *)path;
@@ -79,5 +80,7 @@ typedef enum
  停止播放
  */
 - (void)stop;
+
+- (void)setVolume:(float)vol;
 
 @end

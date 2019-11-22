@@ -7,93 +7,11 @@
 #import <UIKit/UIKit.h>
 #import <pthread.h>
 
+#import "AACEncoder.h"
+
 #define kXDXRecoderAudioBytesPerPacket      2
 #define kXDXRecoderAACFramesPerPacket       1024
 
-AudioConverterRef               _encodeConvertRef = NULL;   ///< convert param
-AudioStreamBasicDescription     _targetDes;                 ///< destination format
-
-#pragma mark Calculate DB
-enum ChannelCount
-{
-    k_Mono = 1,
-    k_Stereo
-};
-
-void caculate_bm_db(void * const data ,size_t length ,int64_t timestamp, ChannelCount channelModel,float channelValue[2],bool isAudioUnit) {
-    int16_t *audioData = (int16_t *)data;
-    
-    if (channelModel == k_Mono) {
-        int     sDbChnnel     = 0;
-        int16_t curr          = 0;
-        int16_t max           = 0;
-        size_t traversalTimes = 0;
-        
-        if (isAudioUnit) {
-            traversalTimes = length/2;// 由于512后面的数据显示异常  需要全部忽略掉
-        }else{
-            traversalTimes = length;
-        }
-        
-        for(int i = 0; i< traversalTimes; i++) {
-            curr = *(audioData+i);
-            if(curr > max) max = curr;
-        }
-        
-        if(max < 1) {
-            sDbChnnel = -100;
-        }else {
-            sDbChnnel = (20*log10((0.0 + max)/32767) - 0.5);
-        }
-        
-        channelValue[0] = channelValue[1] = sDbChnnel;
-        
-    } else if (channelModel == k_Stereo){
-        int sDbChA = 0;
-        int sDbChB = 0;
-        
-        int16_t nCurr[2] = {0};
-        int16_t nMax[2] = {0};
-        
-        for(unsigned int i=0; i<length/2; i++) {
-            nCurr[0] = audioData[i];
-            nCurr[1] = audioData[i + 1];
-            
-            if(nMax[0] < nCurr[0]) nMax[0] = nCurr[0];
-            
-            if(nMax[1] < nCurr[1]) nMax[1] = nCurr[0];
-        }
-        
-        if(nMax[0] < 1) {
-            sDbChA = -100;
-        } else {
-            sDbChA = (20*log10((0.0 + nMax[0])/32767) - 0.5);
-        }
-        
-        if(nMax[1] < 1) {
-            sDbChB = -100;
-        } else {
-            sDbChB = (20*log10((0.0 + nMax[1])/32767) - 0.5);
-        }
-        
-        channelValue[0] = sDbChA;
-        channelValue[1] = sDbChB;
-    }
-}
-
-#pragma mark ---------------------------------- CallBack : collect pcm and  convert  -------------------------------------
-OSStatus encodeConverterComplexInputDataProc(AudioConverterRef              inAudioConverter,
-                                             UInt32                         *ioNumberDataPackets,
-                                             AudioBufferList                *ioData,
-                                             AudioStreamPacketDescription   **outDataPacketDescription,
-                                             void                           *inUserData) {
-    
-    ioData->mBuffers[0].mData           = inUserData;
-    ioData->mBuffers[0].mNumberChannels = _targetDes.mChannelsPerFrame;
-    ioData->mBuffers[0].mDataByteSize   = kXDXRecoderAACFramesPerPacket * kXDXRecoderAudioBytesPerPacket * _targetDes.mChannelsPerFrame;
-    
-    return 0;
-}
 
 static void AQInputCallback (void                   * inUserData,
                              AudioQueueRef          inAudioQueue,
@@ -128,9 +46,7 @@ static void AQInputCallback (void                   * inUserData,
     
 }
 @property (nonatomic, assign) BOOL isRunning;
-// Volume
-@property (nonatomic, assign)       float                           volLDB;
-@property (nonatomic, assign)       float                           volRDB;
+@property (nonatomic , strong) AACEncoder *mAudioEncoder;
 
 @end
 
@@ -145,8 +61,6 @@ static void AQInputCallback (void                   * inUserData,
 
 }
 
-static int          pcm_buffer_size = 0;
-static uint8_t      pcm_buffer[kNumberBuffers*2];
 
 - (id)init
 {
@@ -166,7 +80,7 @@ static uint8_t      pcm_buffer[kNumberBuffers*2];
         _lastLogTime = 0;
         _audioCookedValue = 0;
         pthread_mutex_init(&_lock, NULL);
-        
+        self.mAudioEncoder = [[AACEncoder alloc] init];
     }
     return self;
 }
@@ -297,94 +211,20 @@ static uint8_t      pcm_buffer[kNumberBuffers*2];
 }
 
 
-// PCM -> AAC
-AudioBufferList* convertPCMToAAC (GSAudioSendEngine *recoder) {
-    
-    UInt32   maxPacketSize    = 0;
-    UInt32   size             = sizeof(maxPacketSize);
-    OSStatus status;
-    
-    status = AudioConverterGetProperty(_encodeConvertRef,
-                                       kAudioConverterPropertyMaximumOutputPacketSize,
-                                       &size,
-                                       &maxPacketSize);
-    //    log4cplus_info("AudioConverter","kAudioConverterPropertyMaximumOutputPacketSize status:%d \n",(int)status);
-    
-    AudioBufferList *bufferList             = (AudioBufferList *)malloc(sizeof(AudioBufferList));
-    bufferList->mNumberBuffers              = 1;
-    bufferList->mBuffers[0].mNumberChannels = _targetDes.mChannelsPerFrame;
-    bufferList->mBuffers[0].mData           = malloc(maxPacketSize);
-    bufferList->mBuffers[0].mDataByteSize   = kTVURecoderPCMMaxBuffSize;
-    
-    AudioStreamPacketDescription outputPacketDescriptions;
-    
-    // inNumPackets设置为1表示编码产生1帧数据即返回，官方：On entry, the capacity of outOutputData expressed in packets in the converter's output format. On exit, the number of packets of converted data that were written to outOutputData. 在输入表示输出数据的最大容纳能力 在转换器的输出格式上，在转换完成时表示多少个包被写入
-    UInt32 inNumPackets = 1;
-    // inNumPackets设置为1表示编码产生1024帧数据即返回
-    // Notice : Here, due to encoder characteristics, 1024 frames of data must be given to the encoder in order to complete a conversion, 在此处由于编码器特性,必须给编码器1024帧数据才能完成一次转换,也就是刚刚在采集数据回调中存储的pcm_buffer
-    status = AudioConverterFillComplexBuffer(_encodeConvertRef,
-                                             encodeConverterComplexInputDataProc,
-                                             pcm_buffer,
-                                             &inNumPackets,
-                                             bufferList,
-                                             &outputPacketDescriptions);
-    
-    if(status != noErr){
-        //        log4cplus_debug("Audio Recoder","set AudioConverterFillComplexBuffer status:%d inNumPackets:%d \n",(int)status, inNumPackets);
-        free(bufferList->mBuffers[0].mData);
-        free(bufferList);
-        return NULL;
-    }
-    
-    if (recoder.needsVoiceDemo) {
-        // if inNumPackets set not correct, file will not normally play. 将转换器转换出来的包写入文件中，inNumPackets表示写入文件的起始位置
-        OSStatus status = AudioFileWritePackets(recoder.mRecordFile,
-                                                FALSE,
-                                                bufferList->mBuffers[0].mDataByteSize,
-                                                &outputPacketDescriptions,
-                                                recoder.mRecordPacket,
-                                                &inNumPackets,
-                                                bufferList->mBuffers[0].mData);
-        //        log4cplus_info("write file","write file status = %d",(int)status);
-        if (status == noErr) {
-            recoder.mRecordPacket += inNumPackets;  // 用于记录起始位置
-        }
-    }
-    
-    return bufferList;
-}
-
 - (void)processAudioBuffer:(AudioQueueBufferRef)buffer withQueue:(AudioQueueRef) queue
 {
-    // Get DB
-    float channelValue[2];
-    caculate_bm_db(buffer->mAudioData, buffer->mAudioDataByteSize, 0, k_Mono, channelValue,true);
-    self.volLDB = channelValue[0];
-    self.volRDB = channelValue[1];
-    
-    // collect pcm data，可以在此存储
-    // 由于PCM转成AAC的转换器每次需要有1024个采样点（每一帧2个字节）才能完成一次转换，所以每次需要2048大小的数据，这里定义的pcm_buffer用来累加每次存储的bufferData
-    memcpy(pcm_buffer+pcm_buffer_size, buffer->mAudioData, buffer->mAudioDataByteSize);
-    pcm_buffer_size = pcm_buffer_size + buffer->mAudioDataByteSize;
-    
-    if(pcm_buffer_size >= kFrameSize){
-        AudioBufferList *bufferList = convertPCMToAAC(self);
-        
-        // 因为采样不可能每次都精准的采集到1024个样点，所以如果大于2048大小就先填满2048，剩下的跟着下一次采集一起送给转换器
-        memcpy(pcm_buffer, pcm_buffer + kFrameSize, pcm_buffer_size - kFrameSize);
-        pcm_buffer_size = pcm_buffer_size - kFrameSize;
-        
-        // free memory
-        if(bufferList) {
-            free(bufferList->mBuffers[0].mData);
-            free(bufferList);
-        }
-    }
+//    if (buffer) {
+//        [_mAudioEncoder encodeAudioQueueBuffer:buffer inputDesc:_aqc.mDataFormat completionBlock:^(NSData *encodedData, NSError *error) {
+//            if (self.delegate && [self.delegate respondsToSelector:@selector(processAudioPacket:length:)]) {
+//                [self.delegate processAudioPacket:(char*)encodedData.bytes length:(int)encodedData.length];
+//            }
+//        }];
+//    }
     
     if (buffer) {
         char *psrc = (char*)buffer->mAudioData;
         int bufLength = buffer->mAudioDataByteSize;
-        
+
         if (self.delegate && [self.delegate respondsToSelector:@selector(processAudioPacket:length:)]) {
             [self.delegate processAudioPacket:psrc length:bufLength];
         }
