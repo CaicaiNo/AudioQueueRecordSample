@@ -7,8 +7,6 @@
 #import <UIKit/UIKit.h>
 #import <pthread.h>
 
-#import "AACEncoder.h"
-
 #define kXDXRecoderAudioBytesPerPacket      2
 #define kXDXRecoderAACFramesPerPacket       1024
 
@@ -46,7 +44,6 @@ static void AQInputCallback (void                   * inUserData,
     
 }
 @property (nonatomic, assign) BOOL isRunning;
-@property (nonatomic , strong) AACEncoder *mAudioEncoder;
 
 @end
 
@@ -80,7 +77,6 @@ static void AQInputCallback (void                   * inUserData,
         _lastLogTime = 0;
         _audioCookedValue = 0;
         pthread_mutex_init(&_lock, NULL);
-        self.mAudioEncoder = [[AACEncoder alloc] init];
     }
     return self;
 }

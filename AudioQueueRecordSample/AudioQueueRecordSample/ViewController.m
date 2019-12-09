@@ -11,7 +11,6 @@
 #import "GSAudioSendEngine.h"
 #import "GSPCMWriter.h"
 #import <AVKit/AVKit.h>
-#import "GSOpenALUnit.h"
 #import "GSPCMPlayer.h"
 typedef enum : NSUInteger {
     PlayerStop = 0,
@@ -34,7 +33,6 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *stopBtn;
 @property (nonatomic,assign) PlayerState state;
 
-@property (nonatomic,strong) GSOpenALUnit *openALUnit;
 @property (nonatomic,strong) NSInputStream *inputStream;
 
 @property (nonatomic,strong) GSPCMPlayer *player;
@@ -55,7 +53,6 @@ typedef enum : NSUInteger {
     [_pcmWriter resetPCMHandler];
     _state = 0;
     
-    _openALUnit = [[GSOpenALUnit alloc] init];
     
     [self updateButtons];
 }
