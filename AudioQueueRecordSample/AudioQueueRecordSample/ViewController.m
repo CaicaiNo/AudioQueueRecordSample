@@ -116,12 +116,20 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)playAction:(id)sender {
-    NSString *path = [_pcmWriter getPCMHandler];
+//    NSString *path = [_pcmWriter getPCMHandler];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"20200492-220465" ofType:@"pcm"];
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:path];
     NSLog(@"play pcm : %@, isExist : %d",path,isExist);
+    //设置audiosession和扬声器播放
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
     
     _player = [[GSPCMPlayer alloc] initWithPCMFile:path];
     [_player play];
+    
+    
 }
 
 

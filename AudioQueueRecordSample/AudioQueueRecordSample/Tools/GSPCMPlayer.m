@@ -67,7 +67,8 @@ static void GSAudioQueueOutputCallback(void*                inClientData,
         }else {
             NSLog(@"[GSAudioStreamer] init error : %@ is not exist",path);
         }
-        
+        fillBufferIndex = 0;
+        buffersUsed = 0;
     }
     return self;
 }
@@ -82,49 +83,40 @@ static void GSAudioQueueOutputCallback(void*                inClientData,
     asbd.mBytesPerFrame = (asbd.mBitsPerChannel / 8) * asbd.mChannelsPerFrame;
     asbd.mBytesPerPacket = asbd.mBytesPerFrame * asbd.mFramesPerPacket;
     asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
-    //asbd = AudioStreamBasicDescription,在设定pcm文件时从pcm文件读取
+    //asbd = AudioStreamBasicDescription
     err = AudioQueueNewOutput(&asbd, GSAudioQueueOutputCallback, (__bridge void *)(self), NULL, NULL, 0, &audioQueue);
-    
-    // allocate audio queue buffers
-    for (unsigned int i = 0; i < kNumAQBufs; ++i){
-        err = AudioQueueAllocateBuffer(audioQueue, kAQDefaultBufSize, &audioQueueBuffer[i]);//此时为buffer分配了内存空间
-        AudioQueueEnqueueBuffer(audioQueue, audioQueueBuffer[i], 0, NULL);
+    if (audioQueue) {
+        // allocate audio queue buffers
+        for (unsigned int i = 0; i < kNumAQBufs; ++i){
+            err = AudioQueueAllocateBuffer(audioQueue, kAQDefaultBufSize, &audioQueueBuffer[i]);//此时为buffer分配了内存空间
+            AudioQueueEnqueueBuffer(audioQueue, audioQueueBuffer[i], 0, NULL);
+        }
     }
+    
 }
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
     switch (eventCode) {
-        case NSStreamEventNone:{
+        case NSStreamEventNone:
             NSLog(@"NSStreamEventNone");
-        }
             break;
-        case NSStreamEventOpenCompleted:{
+        case NSStreamEventOpenCompleted:
             NSLog(@"NSStreamEventOpenCompleted");
-        }
             break;
         case NSStreamEventHasBytesAvailable:
-        {
-            
-        }
             break;
-        case NSStreamEventHasSpaceAvailable:{
+        case NSStreamEventHasSpaceAvailable:
             NSLog(@"NSStreamEventHasSpaceAvailable");
-        }
             break;
             //此处处理错误事件
-        case NSStreamEventErrorOccurred:
-        {
+        case NSStreamEventErrorOccurred: {
             NSError * error = [aStream streamError];
             NSString * errorInfo = [NSString stringWithFormat:@"Failed while reading stream; error '%@' (code %ld)", error.localizedDescription, error.code];
             NSLog(@"%@",errorInfo);
-            state = AS_STOPPED;
             break;
         }
-            
-        case NSStreamEventEndEncountered:
-        {
-            state = AS_STOPPED;
+        case NSStreamEventEndEncountered: {
             [aStream close];
             [aStream removeFromRunLoop:[NSRunLoop currentRunLoop]
                                forMode:NSDefaultRunLoopMode];
@@ -144,11 +136,13 @@ static void GSAudioQueueOutputCallback(void*                inClientData,
 
 - (void)play {
     @synchronized (self) {
-        if (state == AS_INITIALIZED || state == AS_STOPPED)
-        {
-            [self enqueueBuffer];
-            state = AS_PLAYING;
-            AudioQueueStart(audioQueue, NULL);
+        if (state == AS_INITIALIZED || state == AS_STOPPED) {
+            int i = 0;
+            while (i <= kNumAQBufs + 1) {
+                [self enqueueBuffer];
+                i++;
+            }
+            
         }
     }
 }
@@ -156,32 +150,37 @@ static void GSAudioQueueOutputCallback(void*                inClientData,
 
 
 - (void)enqueueBuffer {
+    @synchronized (self) {
     // wait until next buffer is not in use
-    pthread_mutex_lock(&queueBuffersMutex);
-    inuse[fillBufferIndex] = true;        // set in use flag
-    buffersUsed++;
-    pthread_mutex_unlock(&queueBuffersMutex);
-    
-    // enqueue buffer
-    AudioQueueBufferRef fillBuf = audioQueueBuffer[fillBufferIndex];
-    
-    
-    
-    uint32_t bytes = 0, packets = (uint32_t)1;
-    NSLog(@"共读取包数量为 %zu , 每次读取包数量 %d",packetsFilled,packets);
-    bytes = [inputStream read:fillBuf->mAudioData maxLength:2048];
-    fillBuf->mAudioDataByteSize = bytes;
-//    if (packets > 0) {
-//        err = AudioQueueEnqueueBuffer(audioQueue, fillBuf, packets, aspd);
-//    }else{
-//        err = AudioQueueEnqueueBuffer(audioQueue, fillBuf, 0, NULL);
-//    }
-    err = AudioQueueEnqueueBuffer(audioQueue, fillBuf, 0, NULL);
-    packetsFilled += packets;
-    
-    // go to next buffer
-    if (++fillBufferIndex >= kNumAQBufs) fillBufferIndex = 0;
-    
+        pthread_mutex_lock(&queueBuffersMutex);
+        inuse[fillBufferIndex] = true;        // set in use flag
+        buffersUsed++;
+        
+        printf("fillBufferIndex %ld \n",(long)fillBufferIndex);
+        // enqueue buffer
+        AudioQueueBufferRef fillBuf = audioQueueBuffer[fillBufferIndex];
+        pthread_mutex_unlock(&queueBuffersMutex);
+        uint32_t readbytes = 0, packets = (uint32_t)1;
+        
+        readbytes = [inputStream read:fillBuf->mAudioData maxLength:kAQDefaultBufSize];
+        if (readbytes > 0) {
+            fillBuf->mAudioDataByteSize = readbytes;
+            NSLog(@"共读取包数量为 %zu , 包大小 %d",packetsFilled,readbytes);
+            err = AudioQueueEnqueueBuffer(audioQueue, fillBuf, 0, NULL);
+            packetsFilled += packets;
+            
+            // go to next buffer
+            if (++fillBufferIndex >= kNumAQBufs) fillBufferIndex = 0;
+            
+            state = AS_PLAYING;
+            AudioQueueStart(audioQueue, NULL);
+        }else {
+            // -1 means no datas
+            state = AS_STOPPING;
+            AudioQueueStop(audioQueue, NO);
+        }
+        
+    }
 }
 
 //
@@ -198,17 +197,14 @@ static void GSAudioQueueOutputCallback(void*                inClientData,
 {
     @synchronized (self) {
         unsigned int bufIndex = -1;
-        for (unsigned int i = 0; i < kNumAQBufs; ++i)
-        {
-            if (inBuffer == audioQueueBuffer[i])
-            {
+        for (unsigned int i = 0; i < kNumAQBufs; ++i) {
+            if (inBuffer == audioQueueBuffer[i]) {
                 bufIndex = i;
                 break;
             }
         }
         
-        if (bufIndex == -1)
-        {
+        if (bufIndex == -1) {
             //        [self failWithErrorCode:AS_AUDIO_QUEUE_BUFFER_MISMATCH];
             pthread_mutex_lock(&queueBuffersMutex);
             pthread_cond_signal(&queueBufferReadyCondition);
@@ -220,11 +216,14 @@ static void GSAudioQueueOutputCallback(void*                inClientData,
         pthread_mutex_lock(&queueBuffersMutex);
         inuse[bufIndex] = false;
         buffersUsed--;
-        
+        if (buffersUsed == 0) {
+            NSLog(@"buffersUsed == 0");
+//            state == AS_STOPPED;
+        }
         //
         //  Enable this logging to measure how many buffers are queued at any time.
         //
-#if LOG_QUEUED_BUFFERS
+#if 1
         NSLog(@"Queued buffers: %ld", buffersUsed);
 #endif
         

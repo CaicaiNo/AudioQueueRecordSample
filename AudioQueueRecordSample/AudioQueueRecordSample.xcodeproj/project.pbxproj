@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0446339A2434E281001682B6 /* 20200492-220465.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 044633992434E281001682B6 /* 20200492-220465.pcm */; };
 		F36FC20F237ACC230057E455 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC20E237ACC230057E455 /* AppDelegate.m */; };
 		F36FC212237ACC230057E455 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F36FC211237ACC230057E455 /* ViewController.m */; };
 		F36FC215237ACC230057E455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36FC213237ACC230057E455 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044633992434E281001682B6 /* 20200492-220465.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "20200492-220465.pcm"; sourceTree = "<group>"; };
 		F36FC20A237ACC230057E455 /* AudioQueueRecordSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioQueueRecordSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36FC20D237ACC230057E455 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F36FC20E237ACC230057E455 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		F36FC20C237ACC230057E455 /* AudioQueueRecordSample */ = {
 			isa = PBXGroup;
 			children = (
+				044633992434E281001682B6 /* 20200492-220465.pcm */,
 				F36FC232237ACD850057E455 /* AudioQueue */,
 				F36FC228237ACCC40057E455 /* Tools */,
 				F36FC20D237ACC230057E455 /* AppDelegate.h */,
@@ -187,6 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0446339A2434E281001682B6 /* 20200492-220465.pcm in Resources */,
 				F36FC21A237ACC260057E455 /* LaunchScreen.storyboard in Resources */,
 				F36FC217237ACC260057E455 /* Assets.xcassets in Resources */,
 				F36FC215237ACC230057E455 /* Main.storyboard in Resources */,

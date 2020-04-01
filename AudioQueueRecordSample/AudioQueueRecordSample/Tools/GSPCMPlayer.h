@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <AudioToolbox/AudioToolbox.h>
 
-#define kNumAQBufs 3            // Number of audio queue buffers we allocate.
+#define kNumAQBufs 16            // Number of audio queue buffers we allocate.
 // Needs to be big enough to keep audio pipeline
 // busy (non-zero number of queued buffers) but
 // not so big that audio takes too long to begin
